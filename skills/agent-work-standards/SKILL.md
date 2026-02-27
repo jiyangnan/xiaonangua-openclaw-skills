@@ -17,6 +17,13 @@ Read: `references/work-standards-v1.md` and use it as the single source of truth
 
 ## Apply to an OpenClaw workspace
 
+### Quick path (recommended)
+
+1) Copy `skills/agent-work-standards` into `~/.openclaw/workspace/skills/`
+2) Copy `KB/rules/agent-work-standards-v1.md` into `~/.openclaw/workspace/KB/rules/`
+3) Patch your clone’s `AGENTS.md` with the apply script
+4) Run the smoke tests in section C
+
 ### A) Copy rule file
 
 - Execution copy: `workspace/KB/rules/agent-work-standards-v1.md`
@@ -33,7 +40,7 @@ In the target agent workspace (e.g. `~/.openclaw/workspace-growth/AGENTS.md`), i
 
 Keep it short; do NOT paste the full standards into AGENTS.md.
 
-Use: `scripts/apply.sh`.
+Use: `scripts/apply.sh` (macOS/Linux) or `scripts/apply.ps1` (Windows).
 
 ### C) Smoke test (recommended)
 

@@ -50,9 +50,21 @@ p, needle, section = sys.argv[1:4]
 text = open(p,'r',encoding='utf-8').read()
 idx = text.find(needle)
 if idx == -1:
-    raise SystemExit(f"Cannot find insertion anchor: {needle}")
-idx_end = idx + len(needle)
-new = text[:idx_end] + section + text[idx_end:]
+    # Fallback: try to insert right after the "## Every Session" header.
+    alt = "## Every Session\n"
+    idx = text.find(alt)
+    if idx == -1:
+        raise SystemExit(
+            "Cannot find insertion anchor. Tried:\n"
+            f"- {needle!r}\n"
+            f"- {alt!r}\n\n"
+            "Manual fix: paste the section after the line 'Don't ask permission. Just do it.'"
+        )
+    idx_end = idx + len(alt)
+    new = text[:idx_end] + section + text[idx_end:]
+else:
+    idx_end = idx + len(needle)
+    new = text[:idx_end] + section + text[idx_end:]
 open(p,'w',encoding='utf-8').write(new)
 print(f"Patched: {p}")
 PY
