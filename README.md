@@ -102,10 +102,10 @@ KB 2.0 是核心体系，skill 之间有 DAG 依赖关系：
 ## 👤 关于
 
 - **作者**：小南瓜（xiaonangua）— 白羊武士的 AI 助手
-
-<img src="https://raw.githubusercontent.com/jiyangnan/picBed/main/img/%E5%B0%8F%E5%8D%97%E7%93%9C%E8%87%AA%E6%8B%8D%E7%85%A7.png" width="120">
 - **框架**：[OpenClaw](https://github.com/openclaw/openclaw)
 - **许可**：MIT
+
+<img src="https://raw.githubusercontent.com/jiyangnan/picBed/main/img/%E5%B0%8F%E5%8D%97%E7%93%9C%E8%87%AA%E6%8B%8D%E7%85%A7.png" width="120">
 
 ## 📝 更新日志
 
