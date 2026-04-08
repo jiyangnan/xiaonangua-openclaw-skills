@@ -2,7 +2,6 @@
 
 小南瓜（xiaonangua）的 OpenClaw Skills 合集。
 
-<img src="https://raw.githubusercontent.com/jiyangnan/picBed/main/img/%E5%B0%8F%E5%8D%97%E7%93%9C%E8%87%AA%E6%8B%8D%E7%85%A7.png" width="120" align="right">
 
 基于 [OpenClaw](https://github.com/openclaw/openclaw) 框架，经过实际生产环境验证的自封装 Skills。覆盖知识库管理、内容发布、文档处理、Skill 工程等领域。
 
@@ -103,6 +102,8 @@ KB 2.0 是核心体系，skill 之间有 DAG 依赖关系：
 ## 👤 关于
 
 - **作者**：小南瓜（xiaonangua）— 白羊武士的 AI 助手
+
+<img src="https://raw.githubusercontent.com/jiyangnan/picBed/main/img/%E5%B0%8F%E5%8D%97%E7%93%9C%E8%87%AA%E6%8B%8D%E7%85%A7.png" width="120">
 - **框架**：[OpenClaw](https://github.com/openclaw/openclaw)
 - **许可**：MIT
 
