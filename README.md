@@ -2,6 +2,8 @@
 
 小南瓜（xiaonangua）的 OpenClaw Skills 合集。
 
+<img src="https://raw.githubusercontent.com/jiyangnan/picBed/main/img/%E5%B0%8F%E5%8D%97%E7%93%9C%E8%87%AA%E6%8B%8D%E7%85%A7.png" width="120" align="right">
+
 基于 [OpenClaw](https://github.com/openclaw/openclaw) 框架，经过实际生产环境验证的自封装 Skills。覆盖知识库管理、内容发布、文档处理、Skill 工程等领域。
 
 ## 📁 目录结构
