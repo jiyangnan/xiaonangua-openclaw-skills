@@ -183,6 +183,38 @@ Step 5: 写入 log.md
 
 ---
 
+### 4.1 定时任务（推荐设置）
+
+**推荐**：每天 20:00 自动执行 Lint 检查
+
+#### 使用 kb-lint skill
+
+```bash
+# 手动执行
+python3 skills/kb-lint/scripts/kb_lint.py --kb-path ~/.openclaw/workspace/KB --save
+
+# 帮助
+python3 skills/kb-lint/scripts/kb_lint.py --help
+```
+
+#### cron 设置（macOS/Linux）
+
+```bash
+# 添加定时任务
+crontab -e
+
+# 每天 20:00 执行
+0 20 * * * cd ~/.openclaw/workspace/skills/kb-lint/scripts && python3 kb_lint.py --kb-path ~/.openclaw/workspace/KB --save >> ~/.openclaw/workspace/logs/kb-lint.log 2>&1
+```
+
+#### 报告输出
+
+- 默认输出 markdown 格式到终端
+- 加 `--save` 追加到 `KB/log.md`
+- 可配合 Telegram/Discord webhook 自动推送
+
+---
+
 ## 日志格式（log.md）
 
 **统一格式，支持 grep 快速查询**：
@@ -307,4 +339,4 @@ grep "ingest" KB/log.md
 
 ---
 
-*最后更新：2026-04-07 | 版本：2.0*
+*最后更新：2026-04-14 | 版本：2.1*
