@@ -91,41 +91,52 @@ published_at: ""
 
 ### 1. Ingest（入库）
 
-**触发条件**：用户说"存一下"、"这个很重要"、"帮我记录这个链接"、"走内容消化流程"
+**触发条件**：用户说"存一下"、"这个很重要"、"帮我记录这个链接"、"走内容消化流程"，或直接发送链接要求处理
 
 **完整流程**：
 
 ```
-Step 1: kb-fetch — 抓取内容
+Step 1: 检查是否有 URL
+  - 如果是对话中直接发链接 → 追加到 KB/inputs/inbox-links.md（确保不重复）
+  - 如果是手动放 Inbox → 跳过此步
+
+Step 2: kb-fetch — 抓取内容
   - 链接 → web_fetch 抓取（保证非空壳）
   - 文件 → 直接读取
   - 对话 → 提取关键信息
 
-Step 2: kb-normalize — 结构化
+Step 3: kb-normalize — 结构化
   - 按 Skill-A-Normalize.md 规则提取字段
   - 输出标准 YAML frontmatter
 
-Step 3: kb-qa-score — 质量打分
+Step 4: kb-qa-score — 质量打分
   - 按 Skill-B-QA-Scorecard.md 评分
   - verdict: keep(≥18) / queue(12-17) / discard(<12)
 
-Step 4: kb-router — 路由落盘
+Step 5: kb-router — 路由落盘
   - keep → KB/notes/YYYY-MM-DD-主题-note.md
   - queue → KB/queue/YYYY-MM-DD-主题-queue.md
   - discard → KB/reviews/discard-log.md
 
-Step 5: kb-crosslink — 交叉更新（新增）
+Step 6: 更新 processed-links.md
+  - 对话式 Ingest → 标记已处理，避免下次重复
+
+Step 7: kb-crosslink — 交叉更新（新增）
   - 从新笔记提取关键实体/概念
   - 搜索 KB/notes/ 已有笔记
   - 命中 1-2 篇 → 双方追加"相关笔记"链接
   - 命中 ≥3 篇 → 考虑建汇总页（需用户确认）
 
-Step 6: 更新索引和日志
+Step 8: 更新索引和日志
   - 追加 KB/index.md 条目（对应分类下）
   - 追加 KB/recent.md 条目（顶部，保留 10 条）
   - 追加 KB/log.md 日志（统一格式）
   - 如涉及活跃研究 → 更新 KB/active.md
 ```
+
+**对话式 Ingest 优化（2026-04-14）**：
+- 用户直接发链接 + 说"走消化流程"时，自动追加到 inbox-links.md
+- 处理完成后标记到 processed-links.md，防止重复处理
 
 ### 2. Query（查询）
 
@@ -339,4 +350,4 @@ grep "ingest" KB/log.md
 
 ---
 
-*最后更新：2026-04-14 | 版本：2.1*
+*最后更新：2026-04-14 | 版本：2.2*
