@@ -46,6 +46,7 @@ class KBLint:
     def run_all_checks(self) -> List[LintResult]:
         """运行所有检查"""
         self.results = [
+            self.check_contradictions(),  # 新增
             self.check_orphan_pages(),
             self.check_missing_pages(),
             self.check_outdated_content(),
@@ -53,6 +54,62 @@ class KBLint:
             self.check_rule_health(),
         ]
         return self.results
+    
+    def check_contradictions(self) -> LintResult:
+        """检查0：矛盾检测 - 关键词对冲突（简化版）"""
+        issues = []
+        
+        # 矛盾关键词对列表（可扩展）
+        contradiction_pairs = [
+            (['RAG 重要', 'RAG 必须', '需要 RAG'], ['RAG 不需要', '不用学 RAG', 'RAG 可以放弃']),
+            (['Hermes 更强', 'Hermes 领先', 'Hermes 优势'], ['OpenClaw 更强', 'OpenClaw 领先', 'OpenClaw 优势']),
+            (['应该学', '必须学', '值得学'], ['不需要学', '不用学', '可以不学']),
+            (['推荐', '建议用', '首选'], ['不推荐', '不建议', '避免']),
+        ]
+        
+        # 收集所有笔记内容
+        note_contents: Dict[str, str] = {}
+        note_files = list(self.notes_path.glob('*.md')) if self.notes_path.exists() else []
+        
+        for note_file in note_files:
+            try:
+                content = note_file.read_text(encoding='utf-8')
+                note_contents[note_file.name] = content.lower()
+            except Exception:
+                continue
+        
+        # 检查每对关键词
+        for pos_keywords, neg_keywords in contradiction_pairs:
+            pos_found = []  # 包含正向关键词的笔记
+            neg_found = []  # 包含负向关键词的笔记
+            
+            for note_name, content in note_contents.items():
+                # 检查正向关键词
+                for kw in pos_keywords:
+                    if kw.lower() in content:
+                        pos_found.append((note_name, kw))
+                        break
+                
+                # 检查负向关键词
+                for kw in neg_keywords:
+                    if kw.lower() in content:
+                        neg_found.append((note_name, kw))
+                        break
+            
+            # 如果同时存在正向和负向，标记为潜在矛盾
+            if pos_found and neg_found:
+                issues.append({
+                    'topic': f'{pos_keywords[0]} vs {neg_keywords[0]}',
+                    'positive': pos_found,
+                    'negative': neg_found,
+                    'issue': f'发现潜在矛盾：{len(pos_found)} 篇笔记持正面观点，{len(neg_found)} 篇持反面观点',
+                    'suggestion': '请人工审核这些笔记，确认是否为真实矛盾或不同语境'
+                })
+        
+        status = 'ok' if not issues else 'warning'
+        message = f'发现 {len(issues)} 处潜在矛盾' if issues else '未发现明显矛盾'
+        
+        return LintResult('矛盾检测', status, issues, message)
     
     def check_orphan_pages(self) -> LintResult:
         """检查1：孤立页面 - index.md 未收录的笔记"""
