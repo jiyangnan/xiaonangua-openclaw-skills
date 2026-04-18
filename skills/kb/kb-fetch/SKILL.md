@@ -57,13 +57,28 @@ description: Unified content fetching for KB ingestion. Fetches readable text fr
 - 出现登录/二维码/验证码/正文为空
 - 输出 error：需要 boss 在 openclaw 浏览器登录一次微信或手动提供正文
 
-### 3) X（x.com）：优先 web_fetch，不稳时 browser
-- web_fetch 如果只返回"Something went wrong/Loading"之类：用 browser 打开。
-- 提取优先：
+### 3) X/Twitter（x.com, twitter.com）：先用 opencli，回退 browser
+- **首选**：用 `opencli x tweet <url>` 或 `opencli twitter tweet <url>`（结构化输出，最稳定）
+- **次选**：web_fetch（不稳时进入 fallback）
+- **最终回退**：browser 打开，提取：
   - `article[data-testid="tweet"]` 的 `innerText`
   - 或 `document.querySelectorAll('[data-testid="tweetText"]')`
 
 > 注意：只要能拿到可用正文即可，不要追求 100% 结构化字段。
+
+### 4) 小红书（xiaohongshu.com）：browser 回退
+- web_fetch 通常只能抓到壳
+- 用 browser 打开，提取：
+  - 标题：`.title` 或 `article header`
+  - 正文：`.content` 或 `.text`
+
+## 失败Fallback 规则
+
+| 场景 | 处理 |
+|------|------|
+| web_fetch 返回 "Something went wrong" / "Loading" | 换用 browser |
+| browser 也抓不到（登录/验证码） | 输出 error，询问用户手动提供或登录后重试 |
+| 所有方式都失败 | 记录到 KB/inputs/inbox-links.md 标注失败原因，等待用户处理 |
 
 ## 安全/合规
 - **不绕过登录/付费墙**：browser fallback 只使用本机已登录会话能看到的内容。

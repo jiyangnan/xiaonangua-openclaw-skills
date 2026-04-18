@@ -37,6 +37,35 @@ description: Route KB items to Obsidian Vault notes/queue based on QA verdict, w
 - verdict=queue/needs_context → 写入 queue
 - verdict=discard → 不入库（只在摘要里说明原因即可）
 
+## 人在回路（每个关键节点暂停确认）
+
+### Step 1: 入库前确认
+```
+→ 展示：文件名、目标路径、verdict
+→ 询问用户："确认写入？Y/N"
+IF 用户确认:
+  → 继续写入
+ELSE:
+  → 跳过本次，询问修改后重新处理
+```
+
+### Step 2: 写入后确认
+```
+→ 写入成功后，展示：
+  - 文件路径
+  - 字数/行数
+  - 摘要
+→ 询问："需要查看内容/修改/重新写？"
+```
+
+### Step 3: 异常处理
+```
+IF 写入失败（权限/磁盘满/路径不存在）:
+  → 记录错误详情
+  → 询问用户："手动创建/换路径/跳过？"
+  → 根据用户选择处理
+```
+
 ## 文件命名
 - notes：`YYYY-MM-DD-<简短主题>-note.md`
 - queue：`YYYY-MM-DD-<简短主题>-queue.md`

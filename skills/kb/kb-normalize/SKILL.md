@@ -50,10 +50,20 @@ reuse_tags:
   - ""
 ```
 
-## 规则
-- evidence 至少 1 条；引用尽量来自原文原句。
-- actions 用动词开头，且可执行。
-- 如果 user_note 存在：写入 why_it_matters 或 reuse_tags 的上下文中（标注"用户意图"）。
+## 字段规则（严格化）
+
+| 字段 | 规则 |
+|------|------|
+| **summary_one_line** | ≤50字，一句话说清楚这篇文章/推文讲什么 |
+| **claim** | 一句话事实性主张，不能是观点/感受 |
+| **why_it_matters** | 为什么值得存（与我有啥关系/能用在哪） |
+| **evidence** | 至少 1 条；quote 必须来自原文原句（用引号）；标注来源 URL |
+| **actions** | 用动词开头，且可执行；不要超过 3 条 |
+| **risks_unknowns** | 可能的风险/不确定因素；不要编造 |
+| **reuse_tags** | 场景标签，便于后续检索 |
+
+### user_note 处理
+- 如果 `user_note` 存在：写入 `why_it_matters` 或 `reuse_tags` 的上下文中（标注"用户意图: ..."）
 
 ## 依赖
 - 本 skill 不负责抓取正文：抓取统一走 `kb-fetch`。
