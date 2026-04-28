@@ -26,10 +26,6 @@ Self封装 Skills for [OpenClaw](https://github.com/openclaw/openclaw), verified
 │       └── KB-知识库管理系统-v2.md
 │
 skills/                        # Other Skills
-├── cognitive-kit/            # 🧠 Agent Cognitive Enhancement
-│   ├── autonomous-loop/      # Structured iteration with stuck-detection
-│   ├── episodic-index/       # Hybrid Vector-Graph episodic memory
-│   └── personality.md        # First-Principles-Only thinking mode
 ├── skill-engineering/         # Skill Engineering Tools
 ├── content-publish/           # Content Publishing Pipeline
 ├── personality/               # Personality & Agent Behavior
@@ -82,8 +78,6 @@ Install `KB/kb-skills/` in pipeline order.
 | ppt-ooxml-tool | Python 3 + python-pptx |
 | xlsx-skill | Python 3 + openpyxl |
 
-| cognitive-kit (episodic-index) | Python 3 + numpy + httpx + embedding API key (GLM or OpenAI) |
-
 ## 👤 About
 
 - **Author**: [Xiaonangua](https://github.com/jiyangnan) — AI Assistant of Aries Warrior
@@ -93,10 +87,6 @@ Install `KB/kb-skills/` in pipeline order.
 <img src="https://raw.githubusercontent.com/jiyangnan/picBed/main/img/%E5%B0%8F%E5%8D%97%E7%93%9C%E8%87%AA%E6%8B%8D%E7%85%A7.png" width="120">
 
 ## 📝 Changelog
-
-### 2026-04-28
-- Add **cognitive-kit**: autonomous-loop, episodic-index, personality.md
-- Sync from [agent-cognitive-kit](https://github.com/jiyangnan/agent-cognitive-kit) project
 
 ### 2026-04-18
 - Refactor: KB/ as top-level, kb-skills/ naming standardized

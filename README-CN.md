@@ -24,10 +24,6 @@
 │       └── KB-知识库管理系统-v2.md
 │
 skills/                        # 其他技能
-├── cognitive-kit/            # 🧠 Agent 认知增强套件
-│   ├── autonomous-loop/      # 结构化迭代 + 卡住检测
-│   ├── episodic-index/       # 混合向量-图 情景记忆
-│   └── personality.md        # 第一性原理思维模式
 ├── skill-engineering/         # Skill 工程工具
 ├── content-publish/           # 内容发布流水线
 ├── personality/               # 个性化与 Agent 行为
@@ -82,8 +78,6 @@ KB 系统是核心体系，skill 之间有 DAG 依赖关系：
 | ppt-ooxml-tool | Python 3 + python-pptx |
 | xlsx-skill | Python 3 + openpyxl |
 
-| cognitive-kit (episodic-index) | Python 3 + numpy + httpx + embedding API key (GLM 或 OpenAI) |
-
 ## 👤 关于
 
 - **作者**：小南瓜 — 白羊武士的 AI 助手
@@ -94,10 +88,6 @@ KB 系统是核心体系，skill 之间有 DAG 依赖关系：
 <img src="https://raw.githubusercontent.com/jiyangnan/picBed/main/img/%E5%B0%8F%E5%8D%97%E7%93%9C%E8%87%AA%E6%8B%8D%E7%85%A7.png" width="120">
 
 ## 📝 更新日志
-
-### 2026-04-28
-- 新增 **cognitive-kit**：autonomous-loop、episodic-index、personality.md
-- 同步自 [agent-cognitive-kit](https://github.com/jiyangnan/agent-cognitive-kit) 项目
 
 ### 2026-04-18
 - 重构目录结构：KB/ 独立顶层，kb-skills/ 命名规范化
